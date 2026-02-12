@@ -51,10 +51,9 @@ app.use((err, req, res, next) => {
   console.error('Error:', err.message);
 
   const isProd = process.env.NODE_ENV === 'production';
-  const isTestErrorRoute = req.path === '/test-error';
 
  res.status(500).json({
-  message: isProd && !isTestErrorRoute
+  message: isProd
   ? 'Something went wrong. Please try again'
   : err.message,
 
