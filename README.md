@@ -1,16 +1,24 @@
 # Notes API (Express + MongoDB)
 
-Backend API for managing notes.
+Backend API for managing personal notes with authentication and sessions.
+
+## HW-04: Authentication & Private Notes
+
+This stage adds user authentication, sessions, cookies and private note collections.
 
 ## Features
-- Pagination for `GET /notes` via query params `page` and `perPage`
-- Filtering notes by `tag`
-- Full-text search by `search` (MongoDB text index on `title` and `content`)
-- Request validation with `celebrate`:
-  - `GET /notes` query validation
-  - `GET/DELETE /notes/:noteId` params validation (ObjectId)
-  - `POST /notes` body validation
-  - `PATCH /notes/:noteId` params + body validation (non-empty body)
+
+- User registration and login
+- Password hashing with bcrypt
+- Session storage in MongoDB
+- Access & refresh tokens
+- HTTP-only secure cookies
+- Session refresh endpoint
+- Logout endpoint
+- Authentication middleware
+- Private notes per user
+- Validation with celebrate
+- MongoDB models: User, Session, Note
 
 ---
 
