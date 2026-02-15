@@ -14,11 +14,11 @@ import {
   updateNote
  } from '../controllers/notesController.js';
 
- import { autentificate } from '../middleware/authenticate.js';
+ import { authenticate } from '../middleware/authenticate.js';
 
 const router = Router();
 
-router.use('/notes', autentificate);
+router.use('/notes', authenticate);
 
 router.get('/notes', celebrate(getAllNotesSchema), getAllNotes);
 router.post ('/notes', celebrate(createNoteSchema), createNote);
