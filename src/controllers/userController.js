@@ -1,13 +1,13 @@
 import createHttpError from "http-errors";
 import { User } from "../models/user.js";
-import { saveFileToCloudinary } from "../utils/seveFileToCloudinary.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
 export const updateUserAvatar = async (req, res, next) => {
   if (!req.file){
     throw createHttpError(400, 'No file');
   }
 
-  const result = await saveFileToCloudinary(req.file.buffer);
+  const result = await saveFileToCloudinary(req.file.buffer, req.user._id);
 
   const user = await User.findByIdAndUpdate(
     req.user._id,

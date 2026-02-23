@@ -1,4 +1,5 @@
 import multer from 'multer';
+import createHttpError from 'http-errors';
 
 export const upload = multer({
   storage: multer.memoryStorage(),
@@ -6,12 +7,10 @@ export const upload = multer({
     fileSize: 2 * 1024 * 1024,
   },
   fileFilter: (req, file, cb) => {
-	  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (file.mimetype.startsWith('image/')) {
+      return cb(null, true);
+    }
 
-	  if (allowedTypes.includes(file.mimetype)) {
-	    cb(null, true);
-	  } else {
-	    cb(new Error('Invalid file type. Only JPEG, PNG, GIF, and WebP are allowed.'), false);
+    cb(createHttpError(400, 'Only images allowed'), false);
 	  }
-  },
-});
+  });

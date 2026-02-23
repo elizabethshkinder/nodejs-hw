@@ -6,7 +6,7 @@ import { createSession, setSessionCookies } from '../services/auth.js';
 import { Session } from "../models/session.js";
 
 import jwt from 'jsonwebtoken';
-import { sendEmail } from '../utils/sendEmail.js';
+import { sendEmail } from '../utils/sendMail.js';
 
 import handlebars from 'handlebars';
 import path from 'node:path';
@@ -109,8 +109,8 @@ export const requestResetEmail = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(200).json({
-    messsage: 'Password reset email sent successfully'
+    return res.status(200).json({
+    message: 'Password reset email sent successfully'
   });
   }
 
@@ -152,7 +152,7 @@ export const resetPassword = async (req, res) => {
   try {
     payload = jwt.verify(token, process.env.JWT_SECRET);
   } catch {
-    throw createHttpError(401, 'Invalid of expired token');
+    throw createHttpError(401, 'Invalid or expired token');
   }
 
   const user = await User.findOne({ _id: payload.sub,
