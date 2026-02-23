@@ -11,6 +11,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 import authRoutes from './routes/authRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 import cookieParser from "cookie-parser";
 
@@ -23,8 +24,9 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-app.use(authRoutes);
 app.use(notesRoutes);
+app.use(authRoutes);
+app.use(userRoutes);
 
 app.use(notFoundHandler);
 app.use(errors());
@@ -35,3 +37,4 @@ await connectMongoDB();
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
